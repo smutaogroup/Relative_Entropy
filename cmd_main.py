@@ -8,7 +8,7 @@ from GirvanNewman import *
 if __name__ == '__main__':
 	if len(sys.argv) != 4:
 		print("Need 3 arguments.")
-		print("./community_network.py psf dcd1 dcd2")
+		print("./cmd_main.py psf dcd1 dcd2")
 		sys.exit()
 	
 	dcd1 = sys.argv[2]; dcd2 = sys.argv[3]; psf = sys.argv[1];

@@ -83,7 +83,7 @@ if __name__ == '__main__':
 			print('\t Length %.4f Nodes %s' %(u,', '.join(str(p) for p in v) ))
 
 	# 7. find the communities 
-	print("\n 7. find the seperation of communities")
+	print("\n7. find the seperation of communities")
 	algorithm = input('\t Select Algorithm \n\t\t 1. Kernighan–Lin algorithm \n\t\t 2. Girvan–Newman algorithm'+  
 			'\n\t\t 3. Hybrid Algorithm (Use GirvanNewman for initial guess, then use KL to approach minimum) --> ')
 	if algorithm:

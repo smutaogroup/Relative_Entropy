@@ -2,8 +2,8 @@
 Calculate Kullback–Leibler divergence for Molecular Dynamics Simulations for any two pertubed simulations with the relevant k shortest paths and communities detection analysis.
 
 ## Goal:
-1. Identify the shortest paths that can propagated the distribution change differences in two simulations.  
-2. Identify the communities that communities inside are less effected by external perturbations, and inter-communities are strongly effected by the external perturbations. 
+1. Identify the several shortest paths that can propagate the local distribution differences into global distribution changes in two simulations.  
+2. Identify several communities that inside the communities are less effected by external perturbations, and inter-communities are strongly effected by the external perturbations. 
 
 ## Cmd_main  
 ### Commnad line interface  

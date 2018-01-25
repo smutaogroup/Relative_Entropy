@@ -6,7 +6,7 @@ Calculate Kullback–Leibler divergence for Molecular Dynamics Simulations for a
 2. Identify the communities that communities inside are less effected by external perturbations, and inter-communities are strongly effected by the external perturbations. 
 
 ## Cmd_main  
-main interface for command line operations.  
+### Commnad line interface  
 Need 3 arguments ./cmd_main.py psf_file dcd1_file dcd2_file.    
 Implemented yen k shortests path algorithm and Kernighan–Lin algorithm, Girvan–Newman algorithm and a hybrid algorithm to identify communities.    
 

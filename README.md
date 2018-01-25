@@ -1,5 +1,5 @@
 # Relative_Entropy
-Calculate Kullback–Leibler divergence for different features in Molecular Dynamics Simulations with the relevant k shortest paths and communities detection analysis.
+Calculate Kullback–Leibler divergence for Molecular Dynamics Simulations for any two pertubed simulations with the relevant k shortest paths and communities detection analysis.
 
 ## Cmd_main  
 main interface for command line operations.  

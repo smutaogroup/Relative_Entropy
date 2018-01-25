@@ -4,10 +4,10 @@ Calculate Kullback–Leibler divergence for different features in Molecular Dyna
 ## Cmd_main  
 main interface for command line operations.  
 Need 3 arguments ./cmd_main.py psf_file dcd1_file dcd2_file.    
-Implemented yen k shortests path algorithm and Kernighan–Lin algorithm, Girvan–Newman algorithm and hybrid algorithm to identify communities.    
+Implemented yen k shortests path algorithm and Kernighan–Lin algorithm, Girvan–Newman algorithm and a hybrid algorithm to identify communities.    
 
 ------
-./re_main.py pdz2_segida.psf 3lnx.dcd 3lny.dcd
+./cmd_main.py pdz2_segida.psf 3lnx.dcd 3lny.dcd
 
 stdout on screen
 1. Identify alpha carbon from psf file

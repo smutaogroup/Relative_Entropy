@@ -14,28 +14,28 @@ Implemented yen k shortests path algorithm and Kernighan–Lin algorithm, Girvan
 ./cmd_main.py pdz2_segida.psf 3lnx.dcd 3lny.dcd
 
 stdout on screen.   
-1. Identify alpha carbon from psf file.    
-  
-2. Calculate pairwise alpha distance.  
-	Find alpha distance file.  
+	1. Identify alpha carbon from psf file.    
 
-3. Estimate density distributions for each feature . 
-	Find density distributions file.   
+	2. Calculate pairwise alpha distance.  
+		Find alpha distance file.  
 
-4. Calculate Relative Entropy for each residue.  
-	Find Relative Entropy file.  
+	3. Estimate density distributions for each feature . 
+		Find density distributions file.   
 
-5. Build Graph.  
-	 Find Graph Pickle file.  
+	4. Calculate Relative Entropy for each residue.  
+		Find Relative Entropy file.  
 
-6. Calculate shortest path between source and target.  
-	 Skip or not (default skip) -->  
-   
-7. find the seperation of communities   
-	 Select Algorithm    
-		 1. Kernighan–Lin algorithm   
-		 2. Girvan–Newman algorithm   
-		 3. Hybrid Algorithm (Use GirvanNewman for initial guess, then use KL to approach minimum) -->   
+	5. Build Graph.  
+		 Find Graph Pickle file.  
+
+	6. Calculate shortest path between source and target.  
+		 Skip or not (default skip) -->  
+
+	7. find the seperation of communities   
+		 Select Algorithm    
+			 1. Kernighan–Lin algorithm   
+			 2. Girvan–Newman algorithm   
+			 3. Hybrid Algorithm (Use GirvanNewman for initial guess, then use KL to approach minimum) -->   
 ------
 
 ## GUI_main

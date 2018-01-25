@@ -33,3 +33,6 @@ stdout on screen
 		 2. Girvan–Newman algorithm
 		 3. Hybrid Algorithm (Use GirvanNewman for initial guess, then use KL to approach minimum) -->
 ------
+
+## GUI_main
+To be developed

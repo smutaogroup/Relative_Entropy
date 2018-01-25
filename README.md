@@ -14,8 +14,9 @@ Implemented yen k shortests path algorithm and Kernighan–Lin algorithm, Girvan
 ./cmd_main.py pdz2_segida.psf 3lnx.dcd 3lny.dcd
 
 stdout on screen.   
-	1. Identify alpha carbon from psf file.    
 
+	1. Identify alpha carbon from psf file.    
+	
 	2. Calculate pairwise alpha distance.  
 		Find alpha distance file.  
 

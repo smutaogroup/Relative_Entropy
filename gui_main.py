@@ -5,10 +5,12 @@ import tkinter.font as font
 from tkinter import filedialog
 from tkinter import messagebox
 from gui_back import background_call
+import os
 
 def fetch_all(data):
 	value_get = {}
 	psf  = data['psf'].get()
+	psf_short = psf.split('/')[-1]
 	dcd1 = data['dcd1'].get()
 	dcd2 = data['dcd2'].get()
 	
@@ -31,7 +33,7 @@ def fetch_all(data):
 		sources = "Global Maximum"
 		targets  = "Global Maximum"
 
-	if reuse_graph == 1:
+	if (reuse_graph == 1) and os.path.isfile(psf_short.split('.')[0]+"/graph.gpickle"):
 		cutoffs = "Not needed"
 	else:
 		cutoffs = cutoff
@@ -41,7 +43,7 @@ def fetch_all(data):
 		messagebox.showerror("Error", "need to fill all the data including psf, dcd1, dcd2")
 		error = 1
 
-	if reuse_graph == 0 and (not cutoff):
+	if (reuse_graph == 0 or (not os.path.isfile(psf_short.split('.')[0]+"/graph.gpickle"))) and (not cutoff):
 		messagebox.showerror("Error", "need to select cutoff value if not reuse data")
 		error = 1
 

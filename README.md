@@ -40,4 +40,9 @@ stdout on screen.
 ------
 
 ## GUI_main
-To be developed
+(Need install tkinter)  
+./gui_main.py   
+
+A simple Graphic User Interface for uploading files and setting parameters  
+![Gui](gui_main.png)  
+

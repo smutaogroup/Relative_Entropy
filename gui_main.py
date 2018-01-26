@@ -3,27 +3,73 @@ from tkinter import *
 from tkinter import ttk
 import tkinter.font as font
 from tkinter import filedialog
+from tkinter import messagebox
+from gui_back import background_call
 
 def fetch_all(data):
 	value_get = {}
-	value_get['psf'] = data['psf'].get().split('/')[-1]
-	value_get['dcd1'] = data['dcd1'].get().split('/')[-1]
-	value_get['dcd2'] = data['dcd2'].get().split('/')[-1]
-	value_get['reuse_alphadist'] = data['reuse_alphadist'].get()
-	value_get['reuse_densdist'] = data['reuse_densdist'].get()
-	value_get['reuse_re'] = data['reuse_re'].get()
-	value_get['cutoff'] = data['cutoff'].get()
-	value_get['reuse_graph'] = data['reuse_graph'].get()
-	value_get['source'] = data['source'].get()
-	value_get['target'] = data['target'].get()
-	value_get['selectalgrithm'] = data['selectalgrithm'].get()
-	value_get['commu'] = data['commu'].get()
-	value_get['repeat'] = data['repeat'].get()
+	psf  = data['psf'].get()
+	dcd1 = data['dcd1'].get()
+	dcd2 = data['dcd2'].get()
+	
+	reuse_alphadist = data['reuse_alphadist'].get()
+	reuse_densdist  = data['reuse_densdist'].get()
+	reuse_re        = data['reuse_re'].get()
+	reuse_graph     = data['reuse_graph'].get()
+	
+	selectalgrithm  = data['selectalgrithm'].get()
 
-	for i,v in value_get.items():
-		print(i,v)
+	cutoff = data['cutoff'].get()
+	source = data['source'].get()
+	target = data['target'].get()
+	commu  = data['commu'].get()
+	repeat = data['repeat'].get()
 
-	background_run(data)
+	sources = source if source else "Optimal from target "+str(target)
+	targets = target if target else "Optimal from source "+str(source)
+	if not (source or target):
+		sources = "Global Maximum"
+		targets  = "Global Maximum"
+
+	if reuse_graph == 1:
+		cutoffs = "Not needed"
+	else:
+		cutoffs = cutoff
+
+	error = 0;
+	if not (psf and dcd1 and dcd2):
+		messagebox.showerror("Error", "need to fill all the data including psf, dcd1, dcd2")
+		error = 1
+
+	if reuse_graph == 0 and (not cutoff):
+		messagebox.showerror("Error", "need to select cutoff value if not reuse data")
+		error = 1
+
+	if selectalgrithm == 1:
+		commus = commu
+		repeats = repeat
+		algorithms = 'Kernighan Lin algorithm'
+		if not (commu and repeat):
+			messagebox.showerror("Error", "need to specify commnuties and repeat times in KL algorithm")
+			error = 1
+		
+	elif selectalgrithm == 3:
+		algorithms = 'Hybrid algorithm'
+		repeats = "Not needed"
+		commus = commu
+		if not (commu):
+			commus = "Automatically Detect by GN algorithm"
+			messagebox.showwarning("Warning", "will use GN algorithm to guess the number of communities")
+	
+	elif selectalgrithm == 2:
+		commus = "Not needed"
+		repeats = "Not needed"
+		algorithms = 'Girvan Newman algorithm'
+
+	if error == 0:
+		messagebox.showinfo("Information","PSF: {} \nDCD1: {} \nDCD2: {}\nAlpha Distance Reuse: {}\nDensity Reuse: {}\nRelative Entropy Reuse: {}\nGraph Reuse: {}\nCutoff: {}\nShortest Path\nSource: {}\nTarget: {}\nCommunity Algorithm: {}\nNumber of Commu: {}\nRepeat Times: {}\n".format(psf,dcd1,dcd2,reuse_alphadist,reuse_densdist,reuse_re,reuse_graph,cutoffs,sources,targets,algorithms,commus,repeats))
+		background_call(psf,dcd1,dcd2,reuse_alphadist,reuse_densdist,reuse_re,reuse_graph,cutoff,source,target,selectalgrithm,commu,repeat)
+
 
 def callback(entry):
 	name = filedialog.askopenfilename()
@@ -41,7 +87,8 @@ if __name__ == '__main__':
 
 	root.minsize(700,730)
 	root['bg'] = "white"
-	
+	root.title("Relative Entropy Calculation")
+
 	for col in range(12):
 		root.columnconfigure(col, weight=1)
 	for row in range(32):

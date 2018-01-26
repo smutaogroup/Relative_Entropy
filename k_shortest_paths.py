@@ -40,7 +40,6 @@ def k_shortest_paths(G, source, target, k):
 	lengths = [length[target]]
 	paths = [path[target]]
 
-	c = count()
 	B = []
 	G_original = G.copy()
 
@@ -76,7 +75,8 @@ def k_shortest_paths(G, source, target, k):
 			if target in spur_path and spur_path[target]:
 				total_path = root_path[:-1] + spur_path[target]
 				total_path_length = get_path_length(G_original, root_path) + spur_path_length[target]
-				heappush(B, (total_path_length, next(c), total_path)) # always put the length small at the top
+				if (total_path_length, total_path) not in B:
+					heappush(B, (total_path_length, total_path)) # always put the length small at the top
 
 			
 			# update all the removed edges
@@ -86,7 +86,7 @@ def k_shortest_paths(G, source, target, k):
 
 		# for each iteration, add all paths founded.
 		if B:
-			(l, _, p) = heappop(B) # B already sorted based on cost, the shortst length will pop out as Ak
+			(l, p) = heappop(B) # B already sorted based on cost, the shortst length will pop out as Ak
 			lengths.append(l)
 			paths.append(p)
 		else:

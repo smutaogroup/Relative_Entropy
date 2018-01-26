@@ -14,7 +14,7 @@ def background_call(psf_full,dcd1_full,dcd2_full,reuse_alphadist,reuse_densdist,
 	os.makedirs(psf.split('.')[0],exist_ok=True)
 	logfile = open(psf.split('.')[0]+'/logfile.txt','w')
 	
-	atompair = alpha_pair(psf)
+	atompair = alpha_pair(psf_full)
 
 	# 2. calculate distance
 	if reuse_alphadist == 1 and os.path.isfile(psf.split('.')[0]+"/alpha_distance.npz"):

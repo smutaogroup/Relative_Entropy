@@ -75,8 +75,8 @@ def fetch_all(data):
 
 def callback(entry):
 	name = filedialog.askopenfilename()
-	print(name)
-	entry.insert(10, name)
+	entry.delete(0, 'end')
+	entry.insert(0, name)
 
 if __name__ == '__main__':
 	root = Tk()

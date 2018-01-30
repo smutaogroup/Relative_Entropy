@@ -11,7 +11,7 @@ Need 3 arguments ./cmd_main.py psf_file dcd1_file dcd2_file.
 Implemented yen k shortests path algorithm and Kernighan–Lin algorithm, Girvan–Newman algorithm and a hybrid algorithm to identify communities.    
 
 ------
-./cmd_main.py pdz2_segida.psf 3lnx.dcd 3lny.dcd
+python cmd_main.py pdz2_segida.psf 3lnx.dcd 3lny.dcd
 
 stdout on screen.   
 
@@ -43,7 +43,7 @@ stdout on screen.
 A simple Graphic User Interface for uploading files and setting parameters, the output will be shown on terminal  
 
 (Need install tkinter)  
-./gui_main.py   
+python gui_main.py   
  
 ![Gui](gui_main.png)  
 

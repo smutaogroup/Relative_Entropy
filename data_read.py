@@ -88,7 +88,7 @@ def build_graph(distribution_features, re_matrix, cutoff):
 	for i in range(num_nodes):
 		for j in range(i+1, num_nodes):
 			if ((re_matrix[i][j] != 0) and   
-				(distribution_features[fe][0][np.argmax(distribution_features[fe][1])] < cutoff or
+				(distribution_features[fe][0][np.argmax(distribution_features[fe][1])] < cutoff and 
 				distribution_features[fe][0][np.argmax(distribution_features[fe][2])] < cutoff)):
 				# only when i,j relative entropy is not 0 and maximum distribution distance less than cutoff value
 				g.add_edge(i,j,length=(1.0/re_matrix[i][j]))

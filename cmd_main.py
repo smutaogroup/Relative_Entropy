@@ -14,7 +14,11 @@ if __name__ == '__main__':
 	dcd1 = sys.argv[2]; dcd2 = sys.argv[3]; psf = sys.argv[1];
 
 	# make a directory to save data
-	os.makedirs(psf.split('.')[0],exist_ok=True)
+	psf_d = psf.split('.psf')[0].split('/')[-1]
+	dcd_n1 = dcd1.split('.dcd')[0].split('/')[-1]
+	dcd_n2 = dcd2.split('.dcd')[0].split('/')[-1]
+
+	os.makedirs(psf_d,exist_ok=True)
 
 	# 1. get alpha carbon pair from psf file
 	print("1. Identify alpha carbon from psf file")
@@ -22,48 +26,48 @@ if __name__ == '__main__':
 
 	# 2. calculate distance
 	print("\n2. Calculate pairwise alpha distance")
-	if os.path.isfile(psf.split('.')[0]+"/alpha_distance.npz"):
+	if os.path.isfile(psf_d+"/alpha_distance.npz"):
 		print("\tFind alpha distance file")
-		tmp = np.load(psf.split('.')[0]+"/alpha_distance.npz")
-		dist_dcd1 = tmp[dcd1.split('.')[0]]
-		dist_dcd2 = tmp[dcd2.split('.')[0]]
+		tmp = np.load(psf_d+"/alpha_distance.npz")
+		dist_dcd1 = tmp[dcd_n1]
+		dist_dcd2 = tmp[dcd_n2]
 	else:
 		dist_dcd1 = alpha_distance(dcd1, psf, atompair) * 10 # use A as unit
 		dist_dcd2 = alpha_distance(dcd2, psf, atompair) * 10 # use A as unit
-		vals_to_save = {dcd1.split('.')[0]:dist_dcd1, dcd2.split('.')[0]:dist_dcd2}
-		np.savez(psf.split('.')[0]+"/alpha_distance", **vals_to_save)
+		vals_to_save = {dcd_n1:dist_dcd1, dcd_n2:dist_dcd2}
+		np.savez(psf_d+"/alpha_distance", **vals_to_save)
 
 	# 3. calculate distribution for select features
 	print("\n3. Estimate density distributions for each feature")
-	if not os.path.isfile(psf.split('.')[0]+"/distribution.npy"):
+	if not os.path.isfile(psf_d+"/distribution.npy"):
 		distribution_features = dcd_distribution(dist_dcd1, dist_dcd2)
-		np.save(psf.split('.')[0]+"/distribution", distribution_features)
+		np.save(psf_d+"/distribution", distribution_features)
 	else:
 		print("\tFind density distributions file")
-		distribution_features = np.load(psf.split('.')[0]+"/distribution.npy")
+		distribution_features = np.load(psf_d+"/distribution.npy")
 
 	# 4. calculate relative entropy regarded with each feature
 	print("\n4. Calculate Relative Entropy for each residue")
-	if not os.path.isfile(psf.split('.')[0]+"/re_matrix.npy"):
+	if not os.path.isfile(psf_d+"/re_matrix.npy"):
 		re_matrix = relative_entropy_feature(distribution_features)
-		np.save(psf.split('.')[0]+"/re_matrix", re_matrix)
+		np.save(psf_d+"/re_matrix", re_matrix)
 	else:
 		print("\tFind Relative Entropy file")
-		re_matrix = np.load(psf.split('.')[0]+"/re_matrix.npy")
+		re_matrix = np.load(psf_d+"/re_matrix.npy")
 
 	# 5. build graph to identify the shortest path
 	# the edge_length = 1 / relative_entropy 
 	# Cutoff value 12A (0 -> no edge, distance > 12A no edge) 
 	print("\n5. Build Graph")
-	if not os.path.isfile(psf.split('.')[0]+"/graph.gpickle"):
+	if not os.path.isfile(psf_d+"/graph.gpickle"):
 		cutoff = input('\t Input Cutoff Value (default 12A) --> ')
 		cutoff = int(cutoff) if cutoff else 12
 		
 		G = build_graph(distribution_features, re_matrix, cutoff)
-		nx.write_gpickle(G, psf.split('.')[0]+"/graph.gpickle")
+		nx.write_gpickle(G, psf_d+"/graph.gpickle")
 	else:
 		print("\t Find Graph Pickle file")
-		G = nx.read_gpickle(psf.split('.')[0]+"/graph.gpickle")
+		G = nx.read_gpickle(psf_d+"/graph.gpickle")
 
 	# 6. find the longest distribution difference and identify the potential path to propagate the difference
 	# find the largest relative entropy differences and corresponding nodes

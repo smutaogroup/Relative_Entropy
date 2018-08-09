@@ -15,6 +15,7 @@ def alpha_pair(psf):
 				alpha_carbon_number.append(int(l[0]))
 
 	num=len(alpha_carbon_number)
+	alpha_carbon_number = np.array(alpha_carbon_number).astype(int) - 1 ## start from 1
 
 	atompair=[]
 	for i in range(num):
